@@ -4,11 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import ManageExpenses from "./screens/ManageExpenses";
+import ManageExpense from "./screens/ManageExpense";
 import RecentExpense from "./screens/RecentExpense";
 import AllExpenses from "./screens/AllExpenses";
 import { colors } from "./contants/styles";
 import IconButton from "./UI/IconButton";
+import ExpenseContextProvider from "./store";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -62,17 +63,33 @@ function ExpensesOverview() {
 export default function App() {
   return (
     <>
-      <StatusBar style="light-content" backgroundColor={colors.primary500} />
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="ExpensesOverview"
-            component={ExpensesOverview}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="ManageExpense" component={ManageExpenses} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <StatusBar barStyle="light-content" translucent={true} />
+      <ExpenseContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: colors.primary500,
+                headerTintColor: "white",
+              },
+            }}
+          >
+            <Stack.Screen
+              name="ExpensesOverview"
+              component={ExpensesOverview}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ManageExpense"
+              component={ManageExpense}
+              options={{
+                presentation: "modal",
+                headerTintColor: "white",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ExpenseContextProvider>
     </>
   );
 }

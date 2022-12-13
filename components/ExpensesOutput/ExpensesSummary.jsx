@@ -3,13 +3,13 @@ import React from "react";
 import { colors } from "../../contants/styles";
 
 const ExpensesSummary = ({ periodName, expenses }) => {
-  const expensesSum = expenses.reduce((sum, expense) => {
+  const expensesSum = expenses?.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0); // 0 zero is the starting value of amount to work with reduce
   return (
     <View style={styles.container}>
       <Text style={styles.period}>{periodName}</Text>
-      <Text style={styles.sum}>${expensesSum.toFixed(2)}</Text>
+      <Text style={styles.sum}>${expensesSum?.toFixed(2)}</Text>
     </View>
   );
 };

@@ -7,7 +7,7 @@ import { getFormatedDate } from "../../utils/date";
 const ExpenseItem = ({ item }) => {
   const { navigate } = useNavigation();
   function expressPressHandler() {
-    navigate("ManageExpense");
+    navigate("ManageExpense", { expenseId: item.id });
   }
   return (
     <TouchableOpacity onPress={expressPressHandler}>
