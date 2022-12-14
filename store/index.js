@@ -34,6 +34,8 @@ function expsesReducer(state, action) {
       const id = newDate().toString + Math.random().toString();
       return [{ ...action.payload, id }, ...state];
     case "DELETE":
+      return state.filter((exp) => exp.id !== action.payload.id);
+    case "UPDATE":
       const expenseItemIndex = state.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -42,8 +44,6 @@ function expsesReducer(state, action) {
       const readyState = [...state];
       readyState[expenseItemIndex] = updateItem;
       return readyState;
-    case "UPDATE":
-      return state.filter((exp) => exp.id !== action.payload.id);
     default:
       return state;
   }
@@ -55,7 +55,7 @@ function ExpenseContextProvider({ children }) {
     dispatch({ type: "ADD", paload: expeseData });
   }
   function deleteExpense(id) {
-    dispatch({ type: "DELETE", payload: id });
+    dispatch({ type: "DELETE", payload: { id } });
   }
   function updateExpense(id, expeseData) {
     dispatch({ type: "UPDATE", payload: { id, data: expeseData } });
