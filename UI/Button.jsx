@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   flatText: {
-    color: colors.primary200,
+    color: "white",
   },
 });

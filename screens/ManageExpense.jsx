@@ -5,6 +5,7 @@ import IconButton from "../UI/IconButton";
 import { colors } from "../contants/styles";
 import Button from "../UI/Button";
 import { ExpensesContext } from "../store";
+import ExpenseForm from "../components/ManageExpense/ExpenseForm";
 
 const ManageExpense = ({ route, navigation }) => {
   const expenseId = route.params?.expenseId;
@@ -25,18 +26,23 @@ const ManageExpense = ({ route, navigation }) => {
   }
   function confirmedHandler() {
     if (expenseId) {
-      expensesCtx.updateExpense();
+      expensesCtx.updateExpense(expenseId, {
+        description: "Test???",
+        amount: 19.99,
+        date: new Date("2022-12-11"),
+      });
     } else {
       expensesCtx.addExpense({
         description: "Test",
         amount: 19.99,
-        date: new Date("2022-12-09"),
+        date: new Date("2022-10-11"),
       });
     }
     navigation.goBack();
   }
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.buttonGroup}>
         <Button mode="flat" onPress={cancelHandler} style={styles.button}>
           Cancel
